@@ -1,0 +1,72 @@
+{
+  "name": "zentrya-pos-windows",
+  "version": "1.0.6",
+  "description": "Zentrya POS - Punto de venta para Windows",
+  "author": "Zentrya",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder --win nsis --x64 --publish never",
+    "publicar": "electron-builder --win nsis --x64 --publish always"
+  },
+  "devDependencies": {
+    "electron": "^33.4.11",
+    "electron-builder": "^25.1.8",
+    "resedit": "^2.0.3"
+  },
+  "build": {
+    "appId": "com.zentrya.pos.windows",
+    "productName": "Zentrya POS",
+    "copyright": "Zentrya",
+    "directories": {
+      "output": "dist",
+      "buildResources": "build"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "picker.html",
+      "picker-preload.js",
+      "app/**/*",
+      "build/icon.png",
+      "build/splash-logo.png",
+      "splash.html",
+      "updater.js",
+      "fe-cert.js"
+    ],
+    "afterPack": "build/afterPack.js",
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "build/icon.ico",
+      "signAndEditExecutable": false
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Zentrya POS",
+      "artifactName": "Zentrya-POS-Setup-${version}.exe"
+    },
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "zentryacontrol-create",
+        "repo": "Zentrya-pos-update-windows",
+        "releaseType": "release"
+      }
+    ]
+  },
+  "dependencies": {
+    "electron-updater": "^6.3.9",
+    "node-forge": "^1.3.1"
+  }
+}

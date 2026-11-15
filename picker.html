@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'unsafe-inline'">
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Segoe UI,system-ui,sans-serif;background:#0F172A;color:#fff;display:flex;flex-direction:column;height:100vh}
+header{padding:18px 20px 8px}h1{margin:0;font-size:17px}p{margin:6px 0 0;font-size:12px;color:#94A3B8}
+#list{flex:1;overflow:auto;padding:8px 14px}
+.it{padding:12px 14px;border:1px solid #334155;border-radius:10px;margin-bottom:8px;cursor:pointer;background:#1E293B}
+.it:hover{border-color:#2563EB;background:#1E3A8A55}.it b{display:block;font-size:14px}.it span{font-size:11px;color:#94A3B8}
+#empty{padding:30px 10px;text-align:center;color:#94A3B8;font-size:13px}
+footer{padding:12px 16px;border-top:1px solid #334155;display:flex;justify-content:flex-end}
+button{padding:9px 18px;border-radius:9px;border:1px solid #475569;background:transparent;color:#fff;font-weight:600;cursor:pointer}
+</style></head><body>
+<header><h1 id="t">Dispositivos</h1><p id="h"></p></header>
+<div id="list"></div>
+<footer><button id="c">Cancelar</button></footer>
+<script>
+const list=document.getElementById('list');
+pickerAPI.onInit(d=>{document.getElementById('t').textContent=d.title||'Dispositivos';document.getElementById('h').textContent=d.hint||'';});
+pickerAPI.onItems(items=>{
+  list.textContent='';
+  if(!items||!items.length){const e=document.createElement('div');e.id='empty';e.textContent='Buscando dispositivos…';list.appendChild(e);return;}
+  items.forEach(i=>{
+    const d=document.createElement('div');d.className='it';
+    const b=document.createElement('b');b.textContent=i.name;const s=document.createElement('span');s.textContent=i.sub||'';
+    d.append(b,s);d.onclick=()=>pickerAPI.choose(i.id);list.appendChild(d);
+  });
+});
+document.getElementById('c').onclick=()=>pickerAPI.cancel();
+</script></body></html>
