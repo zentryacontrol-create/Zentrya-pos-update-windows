@@ -1,6 +1,6 @@
 {
   "name": "zentrya-pos-windows",
-  "version": "1.0.16",
+  "version": "1.0.18",
   "description": "Zentrya POS - Punto de venta para Windows",
   "author": "Zentrya",
   "main": "main.js",
